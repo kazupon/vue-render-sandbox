@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>rendering with render tag example 1</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <p>{{ hello }} <render method="render" :args="'world'"></render></p>
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          hello: 'hello'
+        },
+        methods: {
+          render: function (arg) {
+            return arg
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

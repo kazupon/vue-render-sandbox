@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>rendering with render tag: component</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <a href="javascript:void(0);" @click="component = 'component1'">component1</a>
+      <a href="javascript:void(0);" @click="component = 'component2'">component2</a>
+      <render method="render" :args="component"></render>
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          component: 'component1'
+        },
+        components: {
+          component1: {
+            render: function () {
+              return this.$createElement('p', {}, ['component1'])
+            }
+          },
+          component2: {
+            template: '<p>component2</p>'
+          }
+        },
+        methods: {
+          render: function (arg) {
+            return this.$createElement(arg)
+          }
+        }
+      })
+    </script>
+  </body>
+</html>

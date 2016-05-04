@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>rendering with render tag exmpale 2</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <script src="./vue.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <render method="render" :args="message"></render>
+    </div>
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          message: 'hello world'
+        },
+        methods: {
+          render: function (arg) {
+            return this.$createElement('p', { class: 'message' }, [arg])
+          }
+        }
+      })
+    </script>
+  </body>
+</html>
