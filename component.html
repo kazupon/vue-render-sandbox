@@ -7,6 +7,7 @@
   </head>
   <body>
     <div id="app">
+      message: <input type="text" v-model="message"></br>
       <a href="javascript:void(0);" @click="component = 'component1'">component1</a>
       <a href="javascript:void(0);" @click="component = 'component2'">component2</a>
       <render method="render" :args="component"></render>
@@ -15,21 +16,34 @@
       new Vue({
         el: '#app',
         data: {
-          component: 'component1'
+          component: 'component1',
+          message: 'hello world'
         },
         components: {
           component1: {
-            render: function () {
-              return this.$createElement('p', {}, ['component1'])
-            }
+            props: ['message'],
+            data: function () {
+              return { show: true }
+            },
+            template: '<div>'
+              + '<p v-if="show">component1: {{message}}</p>'
+              + '</div>'
           },
           component2: {
-            template: '<p>component2</p>'
+            props: ['message'],
+            data: function () {
+              return { show: true }
+            },
+            render: function () {
+              return this.$createElement('div', {}, [
+                this.$createElement('p', { directives: [{ name: 'show', value: this.show }] }, ['component2: ' + this.__toString__(this.message)])
+              ])
+            }
           }
         },
         methods: {
           render: function (arg) {
-            return this.$createElement(arg)
+            return this.$createElement(arg, { props: { message: this.message } })
           }
         }
       })
